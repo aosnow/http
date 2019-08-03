@@ -116,6 +116,9 @@ Vue.http.useInterceptor(
 ```
 
 ## ChangeLog
+### v0.0.5 ~ v0.0.8
+- 完善 `lib` 所涉及 `index.d.ts` 类型定义
+
 ### v0.0.4
 - 优化构建规则，修正 `npm` 安装需要包名列表（`npm3+`不支持自动安装`peerDependencies`）
 - 除去 `changelog` 的其它部分，全部使用英文描述

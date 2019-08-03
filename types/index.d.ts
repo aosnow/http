@@ -4,156 +4,62 @@
 // created: 2019/8/1
 // ------------------------------------------------------------------------------
 
-export interface AxiosTransformer {
-  (data: any, headers?: any): any;
+import Vue from 'vue';
+import { AxiosRequestConfig } from "./axios";
+import EasyHttp from './EasyHttp';
+import HttpError from './HttpError';
+
+/**
+ * 做为 Vue 插件提供注册，绑定 EasyHttp 实例到 Vue.http
+ * @param {Vue} Vue
+ * @param {AxiosRequestConfig} config
+ * @constructor
+ */
+declare function EasyHttpPlugin( Vue, config );
+
+/**
+ * 生成 sha1 乱码串
+ * @param [input]
+ * @param [random] 默认生成随机串（每次结果不同）
+ * @return {Buffer | string | PromiseLike<ArrayBuffer>}
+ */
+declare function hash( input?:string, random?:boolean )
+
+declare const ResponseType:{
+  text:'text',
+  json:'json', // IE10/11 不支持该类型
+  blob:'blob',
+  document:'document',
+  arraybuffer:'arraybuffer'
+};
+
+declare const ContentType:{
+  stream:'application/octet-stream',
+  json:'application/json',
+  form:'application/x-www-form-urlencoded',
+  formData:'multipart/form-data',
+  javascript:'application/x-javascript'
+};
+
+// 扩展 Vue 静态属性，若是实例属性直接扩展 interface Vue 即可
+export interface VueConstructor<V extends Vue = Vue>
+{
+  http:EasyHttp;
 }
 
-export interface AxiosAdapter {
-  (config: AxiosRequestConfig): AxiosPromise<any>;
-}
+export default EasyHttp;
 
-export interface AxiosBasicCredentials {
-  username: string;
-  password: string;
-}
+export {
+  // vue plugin
+  EasyHttpPlugin,
 
-export interface AxiosProxyConfig {
-  host: string;
-  port: number;
-  auth?: {
-    username: string;
-    password:string;
-  };
-  protocol?: string;
-}
+  // 原生导出
+  HttpError,
+  EasyHttp,
+  ResponseType,
+  ContentType,
 
-export type Method =
-  | 'get' | 'GET'
-  | 'delete' | 'DELETE'
-  | 'head' | 'HEAD'
-  | 'options' | 'OPTIONS'
-  | 'post' | 'POST'
-  | 'put' | 'PUT'
-  | 'patch' | 'PATCH'
-
-export type ResponseType =
-  | 'arraybuffer'
-  | 'blob'
-  | 'document'
-  | 'json'
-  | 'text'
-  | 'stream'
-
-export interface AxiosRequestConfig {
-  url?: string;
-  method?: Method;
-  baseURL?: string;
-  transformRequest?: AxiosTransformer | AxiosTransformer[];
-  transformResponse?: AxiosTransformer | AxiosTransformer[];
-  headers?: any;
-  params?: any;
-  paramsSerializer?: (params: any) => string;
-  data?: any;
-  timeout?: number;
-  withCredentials?: boolean;
-  adapter?: AxiosAdapter;
-  auth?: AxiosBasicCredentials;
-  responseType?: ResponseType;
-  xsrfCookieName?: string;
-  xsrfHeaderName?: string;
-  onUploadProgress?: (progressEvent: any) => void;
-  onDownloadProgress?: (progressEvent: any) => void;
-  maxContentLength?: number;
-  validateStatus?: (status: number) => boolean;
-  maxRedirects?: number;
-  socketPath?: string | null;
-  httpAgent?: any;
-  httpsAgent?: any;
-  proxy?: AxiosProxyConfig | false;
-  cancelToken?: CancelToken;
-}
-
-export interface AxiosResponse<T = any>  {
-  data: T;
-  status: number;
-  statusText: string;
-  headers: any;
-  config: AxiosRequestConfig;
-  request?: any;
-}
-
-export interface AxiosError<T = any> extends Error {
-  config: AxiosRequestConfig;
-  code?: string;
-  request?: any;
-  response?: AxiosResponse<T>;
-  isAxiosError: boolean;
-}
-
-export interface AxiosPromise<T = any> extends Promise<AxiosResponse<T>> {
-}
-
-export interface CancelStatic {
-  new (message?: string): Cancel;
-}
-
-export interface Cancel {
-  message: string;
-}
-
-export interface Canceler {
-  (message?: string): void;
-}
-
-export interface CancelTokenStatic {
-  new (executor: (cancel: Canceler) => void): CancelToken;
-  source(): CancelTokenSource;
-}
-
-export interface CancelToken {
-  promise: Promise<Cancel>;
-  reason?: Cancel;
-  throwIfRequested(): void;
-}
-
-export interface CancelTokenSource {
-  token: CancelToken;
-  cancel: Canceler;
-}
-
-export interface AxiosInterceptorManager<V> {
-  use(onFulfilled?: (value: V) => V | Promise<V>, onRejected?: (error: any) => any): number;
-  eject(id: number): void;
-}
-
-export interface AxiosInstance {
-  (config: AxiosRequestConfig): AxiosPromise;
-  (url: string, config?: AxiosRequestConfig): AxiosPromise;
-  defaults: AxiosRequestConfig;
-  interceptors: {
-    request: AxiosInterceptorManager<AxiosRequestConfig>;
-    response: AxiosInterceptorManager<AxiosResponse>;
-  };
-  getUri(config?: AxiosRequestConfig): string;
-  request<T = any, R = AxiosResponse<T>> (config: AxiosRequestConfig): Promise<R>;
-  get<T = any, R = AxiosResponse<T>>(url: string, config?: AxiosRequestConfig): Promise<R>;
-  delete<T = any, R = AxiosResponse<T>>(url: string, config?: AxiosRequestConfig): Promise<R>;
-  head<T = any, R = AxiosResponse<T>>(url: string, config?: AxiosRequestConfig): Promise<R>;
-  post<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: AxiosRequestConfig): Promise<R>;
-  put<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: AxiosRequestConfig): Promise<R>;
-  patch<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: AxiosRequestConfig): Promise<R>;
-}
-
-export interface AxiosStatic extends AxiosInstance {
-  create(config?: AxiosRequestConfig): AxiosInstance;
-  Cancel: CancelStatic;
-  CancelToken: CancelTokenStatic;
-  isCancel(value: any): boolean;
-  all<T>(values: (T | Promise<T>)[]): Promise<T[]>;
-  spread<T, R>(callback: (...args: T[]) => R): (array: T[]) => R;
-}
-
-declare const axios: AxiosStatic;
-
-export default axios;
+  // 工具方法
+  hash
+};
 
