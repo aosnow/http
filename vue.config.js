@@ -15,7 +15,7 @@ function resolve(...dir) {
 }
 
 // 排除所有不必要的模块，让宿主环境去安排必要的第三方包
-const regexp = /^(lodash-es|core-js|hash.js|axios)/i;
+const regexp = /^(lodash-es|core-js|axios)/i;
 const externals = isDebug ? '' : [regexp];
 
 module.exports = {

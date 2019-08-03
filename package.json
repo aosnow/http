@@ -1,7 +1,7 @@
 {
   "name": "@mudas/http",
-  "version": "0.0.3",
-  "description": "A library project using commonjs type",
+  "version": "0.0.4",
+  "description": "This is a secondary encapsulation library that extends Axios",
   "author": "张雄军 <zxj@blibao.cn>",
   "license": "MIT",
   "main": "dist/http.common.js",
@@ -30,7 +30,6 @@
   "dependencies": {},
   "peerDependencies": {
     "axios": "^0.19.0",
-    "hash.js": "^1.1.7",
     "lodash-es": "^4.17.15",
     "core-js": "^2.6.5"
   },
