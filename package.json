@@ -1,6 +1,6 @@
 {
   "name": "@mudas/http",
-  "version": "0.0.11-beta.01",
+  "version": "0.0.11-beta.02",
   "description": "This is a secondary encapsulation library that extends Axios",
   "author": "张雄军 <zxj@blibao.cn>",
   "license": "MIT",

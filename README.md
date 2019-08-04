@@ -116,6 +116,9 @@ Vue.http.useInterceptor(
 ```
 
 ## ChangeLog
+### v0.0.11-beta.02
+- 完善 HttpError 解析逻辑，无匹配的 Error 解析保留原有 Error.message 输出
+
 ### v0.0.10 ~ v0.0.11-beta.01
 - 完善 `index.d.ts` 类型定义
 

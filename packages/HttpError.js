@@ -81,6 +81,9 @@ HttpError.info = error => {
         else if (/^network/i.test(error.message)) {
           return HttpError.network;
         }
+        else {
+          return error.message;
+        }
       }
       else if (/^cancel/i.test(error.toString())) {
         return error['message'] || HttpError.cancel;
