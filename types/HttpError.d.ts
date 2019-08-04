@@ -1,7 +1,8 @@
 /**
  * HTTP 请求错误信息集合
  */
-declare const HttpError:{
+declare interface HttpError
+{
 
   default:string;
   cancel:string;
@@ -54,7 +55,14 @@ declare const HttpError:{
    * @param {Object} options 新的错误信息配置，如{404:'页面未找到'}
    * @param options
    */
-  merge( options:any ):void;
-};
+  merge:(options:any) => void;
+
+  /**
+   * 根据 HTTP 错误对象分析对应的错误详细内容
+   * @param {{request,response:{status}}} error
+   * @returns {*}
+   */
+  info:(error) => string
+}
 
 export default HttpError;

@@ -116,6 +116,13 @@ Vue.http.useInterceptor(
 ```
 
 ## ChangeLog
+### v0.0.10 ~ v0.0.11-beta.01
+- 完善 `index.d.ts` 类型定义
+
+### v0.0.9
+- `EasyHttp` 增加 `batchUseInterceptor()` 实例方法，批量注册拦截器
+- 完善 `index.d.ts` 类型定义
+
 ### v0.0.5 ~ v0.0.8
 - 完善 `lib` 所涉及 `index.d.ts` 类型定义
 

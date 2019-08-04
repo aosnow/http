@@ -5,27 +5,29 @@
 // ------------------------------------------------------------------------------
 
 import Vue from 'vue';
+import { PluginFunction } from 'vue';
 import { AxiosRequestConfig } from "./axios";
-import EasyHttp from './EasyHttp';
-import HttpError from './HttpError';
+import { EasyHttpInstance } from './EasyHttp';
+import HttpError from "./HttpError";
+
+export { HttpError };
 
 /**
  * 做为 Vue 插件提供注册，绑定 EasyHttp 实例到 Vue.http
  * @param {Vue} Vue
  * @param {AxiosRequestConfig} config
- * @constructor
  */
-declare function EasyHttpPlugin( Vue, config );
+export declare const EasyHttpPlugin:PluginFunction<AxiosRequestConfig>;
 
 /**
  * 生成 sha1 乱码串
  * @param [input]
  * @param [random] 默认生成随机串（每次结果不同）
- * @return {Buffer | string | PromiseLike<ArrayBuffer>}
+ * @return {string}
  */
-declare function hash( input?:string, random?:boolean )
+export declare function hash(input?:string, random?:boolean):string
 
-declare const ResponseType:{
+export declare const ResponseType:{
   text:'text',
   json:'json', // IE10/11 不支持该类型
   blob:'blob',
@@ -33,7 +35,7 @@ declare const ResponseType:{
   arraybuffer:'arraybuffer'
 };
 
-declare const ContentType:{
+export declare const ContentType:{
   stream:'application/octet-stream',
   json:'application/json',
   form:'application/x-www-form-urlencoded',
@@ -42,24 +44,8 @@ declare const ContentType:{
 };
 
 // 扩展 Vue 静态属性，若是实例属性直接扩展 interface Vue 即可
-export interface VueConstructor<V extends Vue = Vue>
-{
-  http:EasyHttp;
+declare module 'vue/types/vue' {
+  interface VueConstructor<V extends Vue> {
+    http:EasyHttpInstance;
+  }
 }
-
-export default EasyHttp;
-
-export {
-  // vue plugin
-  EasyHttpPlugin,
-
-  // 原生导出
-  HttpError,
-  EasyHttp,
-  ResponseType,
-  ContentType,
-
-  // 工具方法
-  hash
-};
-

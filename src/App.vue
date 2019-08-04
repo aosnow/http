@@ -27,24 +27,49 @@ Vue.use(EasyHttpPlugin);
 // TODO: 通过拦截器，植入 token
 // TODO: 通过拦截器，拦截 token 失效后中止所有请求
 
-Vue.http.useInterceptor('request', config => {
-  config.headers.token = '898efeb2-3ee9-46dc-ab40-1ee4d1087987';
-  config.headers.invoke_source = '2101';
-  config.headers.out_request_no = hash();
-  return config;
-});
+// Vue.http.useInterceptor('request', config => {
+//   config.headers.token = '898efeb2-3ee9-46dc-ab40-1ee4d1087987';
+//   config.headers.invoke_source = '2101';
+//   config.headers.out_request_no = hash();
+//   return config;
+// });
+//
+// Vue.http.useInterceptor(
+//   'response',
+//   response => {
+//     // 必须返回原数据，否则正常请求之处无法取得该返回数据
+//     return response;
+//   },
+//   error => {
+//     const errInfo = HttpError.info(error);
+//     throw new Error(errInfo);
+//   }
+// );
 
-Vue.http.useInterceptor(
-  'response',
-  response => {
-    // 必须返回原数据，否则正常请求之处无法取得该返回数据
-    return response;
+const config = [
+  {
+    type: 'request',
+    interceptor: config => {
+      config.headers.token = '898efeb2-3ee9-46dc-ab40-1ee4d1087987';
+      config.headers.invoke_source = '2101';
+      config.headers.out_request_no = hash();
+      return config;
+    }
   },
-  error => {
-    const errInfo = HttpError.info(error);
-    throw new Error(errInfo);
+  {
+    type: 'response',
+    interceptor: response => {
+      // 必须返回原数据，否则正常请求之处无法取得该返回数据
+      return response;
+    },
+    error: error => {
+      const errInfo = HttpError.info(error);
+      throw new Error(errInfo);
+    }
   }
-);
+];
+
+Vue.http.batchUseInterceptor(config);
 
 // Vue.http.ejectInterceptor('request');
 

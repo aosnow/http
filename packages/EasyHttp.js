@@ -40,15 +40,15 @@ class EasyHttp {
     this._conf = merge(conf, EasyHttp.Default);
 
     // 初始化
-    this.init();
+    this._init();
   }
 
-  init() {
+  _init() {
     // 创建实例成员（不影响全局使用）
     this._axios = axios.create(this._conf || Object.create(null));
 
     // cancel token
-    this.cancelToken();
+    this._initCancelToken();
   }
 
   // --------------------------------------------------------------------------
@@ -87,7 +87,7 @@ class EasyHttp {
   /**
    * 创建 axios cancel token
    */
-  cancelToken() {
+  _initCancelToken() {
     this._source = null;
     this._source = axios.CancelToken.source();
   }
@@ -100,7 +100,7 @@ class EasyHttp {
     this._source.cancel(message);
 
     // 重新生成新的 token，否则后续请求将被继续直接取消
-    this.cancelToken();
+    this._initCancelToken();
   }
 
   /**
@@ -210,6 +210,17 @@ class EasyHttp {
   // Interceptor methods
   //
   // --------------------------------------------------------------------------
+
+  /**
+   * 批量注册拦截器
+   * @param {InterceptorConfig[]} interceptors
+   */
+  batchUseInterceptor(interceptors) {
+    interceptors.forEach(item => {
+      const { type, interceptor, error } = item;
+      this.useInterceptor(type, interceptor, error);
+    });
+  }
 
   /**
    * 注册拦截器

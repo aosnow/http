@@ -60,7 +60,7 @@ HttpError.merge = options => {
 /**
  * 根据 HTTP 错误对象分析对应的错误详细内容
  * @param {{request,response:{status}}} error
- * @returns {*}
+ * @returns {string}
  */
 HttpError.info = error => {
   const type = typeof error;
