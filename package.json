@@ -1,17 +1,20 @@
 {
   "name": "@mudas/http",
-  "version": "0.0.11-beta.02",
+  "version": "0.0.11-beta.07",
   "description": "This is a secondary encapsulation library that extends Axios",
   "author": "张雄军 <zxj@blibao.cn>",
   "license": "MIT",
   "main": "dist/http.common.js",
   "sideEffects": false,
-  "homepage": "",
+  "homepage": "https://github.com/aosnow/http",
+  "bugs": {
+    "url": "https://github.com/aosnow/http/issues"
+  },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/aosnow/http"
   },
-  "keywords": [],
+  "keywords": [ "http" ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name http packages/index.js",
@@ -27,7 +30,7 @@
     "package.json",
     "README.md"
   ],
-  "dependencies": {},
+  "dependencies": { },
   "peerDependencies": {
     "axios": "^0.19.0",
     "lodash-es": "^4.17.15",

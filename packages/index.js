@@ -10,21 +10,12 @@ import { ResponseType, ContentType } from './Types';
 import { hash } from './utils';
 
 // 做为 Vue Plugin
-function EasyHttpPlugin(Vue, config) {
+function install(Vue, config) {
   // 不绑定到 Vue.prototype 的目的在于，禁止在视图层做任何 http 请求
   Vue.http = new EasyHttp(config);
 }
 
-export {
-  // vue plugin
-  EasyHttpPlugin,
-
-  // 原生导出
-  HttpError,
-  EasyHttp,
-  ResponseType,
-  ContentType,
-
-  // 工具方法
-  hash
+const _default = {
+  install, HttpError, EasyHttp, ResponseType, ContentType, hash
 };
+export default _default;

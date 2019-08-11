@@ -11,13 +11,13 @@ npm i @mudas/http lodash-es core-js axios -S
 register vue plugin：
 ```js
 import Vue from 'vue';
-import { EasyHttpPlugin } from '@mudas/http';
+import EasyHttp from '@mudas/http';
 
 // bind Vue.http
-Vue.use(EasyHttpPlugin);
+Vue.use(EasyHttp);
 
 // Specify configuration for Axios
-// Vue.use(EasyHttpPlugin, {timeout: 5000});
+// Vue.use(EasyHttp, {timeout: 5000});
 ```
 
 ## Usage
@@ -87,6 +87,10 @@ Vue.http.useInterceptor(
     throw new Error(errInfo);
   }
 );
+
+// batch registration
+// const interceptors = [];
+Vue.http.batchUseInterceptor(interceptors);
 ```
 
 4、Remove interceptor
@@ -116,6 +120,21 @@ Vue.http.useInterceptor(
 ```
 
 ## ChangeLog
+### v0.0.11-beta.07
+- 完善 README.md
+
+### v0.0.11-beta.06
+- 细节调整，类型声明
+
+### v0.0.11-beta.05
+- 完善 `index.d.ts` 类型定义
+
+### v0.0.11-beta.04
+- 完善 export
+
+### v0.0.11-beta.03
+- 完善 export 和 import 使用方式，类型定义完善
+
 ### v0.0.11-beta.02
 - 完善 HttpError 解析逻辑，无匹配的 Error 解析保留原有 Error.message 输出
 
