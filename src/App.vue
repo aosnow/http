@@ -19,10 +19,10 @@
 
 <script>
 import Vue from 'vue';
-import { EasyHttpPlugin, HttpError, hash, ResponseType, ContentType } from '@mudas/http';
+import EasyHttp, { HttpError, hash, ResponseType } from '@mudas/http';
 import { download } from '@mudas/file';
 
-Vue.use(EasyHttpPlugin);
+Vue.use(EasyHttp);
 
 // TODO: 通过拦截器，植入 token
 // TODO: 通过拦截器，拦截 token 失效后中止所有请求

@@ -5,8 +5,6 @@
 // ------------------------------------------------------------------------------
 
 const path = require('path');
-const namespace = require('./namespace');
-const packageName = namespace + 'http';
 
 function resolve(...dir) {
   return path.join(__dirname, ...dir);

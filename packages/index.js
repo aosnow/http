@@ -15,10 +15,7 @@ function install(Vue, config) {
   Vue.http = new EasyHttp(config);
 }
 
-export default {
-  install, HttpError, EasyHttp, ResponseType, ContentType, hash
-};
-
+export default install;
 export {
-  install, HttpError, EasyHttp, ResponseType, ContentType, hash
+  HttpError, ResponseType, ContentType, hash
 };

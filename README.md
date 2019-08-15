@@ -120,6 +120,9 @@ Vue.http.useInterceptor(
 ```
 
 ## ChangeLog
+### v0.0.11-beta.08
+- 完善 README.md
+
 ### v0.0.11-beta.07
 - 完善 README.md
 
