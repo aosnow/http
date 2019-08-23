@@ -4,13 +4,10 @@
 // created: 2019/8/1
 // ------------------------------------------------------------------------------
 
-import Vue from 'vue';
-import { PluginFunction, PluginObject } from 'vue';
+import _Vue from 'vue';
 import { AxiosRequestConfig } from './axios';
 import EasyHttp, { EasyHttpInstance } from './EasyHttp';
 import HttpError from './HttpError';
-
-export { HttpError, EasyHttp };
 
 /**
  * 生成 sha1 乱码串
@@ -18,9 +15,9 @@ export { HttpError, EasyHttp };
  * @param [random] 默认生成随机串（每次结果不同）
  * @return {string}
  */
-export declare function hash(input?:string, random?:boolean):string
+declare function hash(input?:string, random?:boolean):string
 
-export declare const ResponseType:{
+declare const ResponseType:{
   text:'text';
   json:'json'; // IE10/11 不支持该类型
   blob:'blob';
@@ -28,7 +25,7 @@ export declare const ResponseType:{
   arraybuffer:'arraybuffer';
 };
 
-export declare const ContentType:{
+declare const ContentType:{
   stream:'application/octet-stream';
   json:'application/json';
   form:'application/x-www-form-urlencoded';
@@ -38,19 +35,19 @@ export declare const ContentType:{
 
 // 扩展 Vue 静态属性，若是实例属性直接扩展 interface Vue 即可
 declare module 'vue/types/vue' {
-  interface VueConstructor<V extends Vue> {
+  export interface VueConstructor {
     http:EasyHttpInstance;
   }
 }
 
-export declare function install(Vue:Vue):void;
+export declare function install(Vue:typeof _Vue, options?:AxiosRequestConfig):void;
 
 declare const _default:{
-  /**
-   * 做为 Vue 插件提供注册，绑定 EasyHttp 实例到 Vue.http
-   * @param {Vue} Vue
-   */
-  intall:PluginFunction<AxiosRequestConfig>;
+  install:typeof install
+  HttpError:HttpError,
+  EasyHttp:typeof EasyHttp,
+  ContentType:typeof ContentType,
+  ResponseType:typeof ResponseType,
+  hash:typeof hash
 };
-
-export as namespace EasyHttp;
+export default _default;
