@@ -35,7 +35,7 @@ declare const ContentType:{
 
 // 扩展 Vue 静态属性，若是实例属性直接扩展 interface Vue 即可
 declare module 'vue/types/vue' {
-  export interface VueConstructor {
+  interface VueConstructor {
     http:EasyHttpInstance;
   }
 }
@@ -43,7 +43,7 @@ declare module 'vue/types/vue' {
 export declare function install(Vue:typeof _Vue, options?:AxiosRequestConfig):void;
 
 declare const _default:{
-  install:typeof install
+  install:typeof install,
   HttpError:HttpError,
   EasyHttp:typeof EasyHttp,
   ContentType:typeof ContentType,
@@ -51,3 +51,11 @@ declare const _default:{
   hash:typeof hash
 };
 export default _default;
+
+export {
+  HttpError,
+  EasyHttp,
+  ContentType,
+  ResponseType,
+  hash
+};
