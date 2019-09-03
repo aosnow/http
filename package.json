@@ -1,6 +1,6 @@
 {
   "name": "@mudas/http",
-  "version": "0.0.15",
+  "version": "0.0.17",
   "description": "This is a secondary encapsulation library that extends Axios",
   "author": "mudas",
   "license": "MIT",

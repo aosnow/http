@@ -51,11 +51,4 @@ declare const _default:{
   hash:typeof hash
 };
 export default _default;
-
-export {
-  HttpError,
-  EasyHttp,
-  ContentType,
-  ResponseType,
-  hash
-};
+export { HttpError, EasyHttp, ContentType, ResponseType, hash };
