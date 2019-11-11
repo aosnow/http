@@ -1,6 +1,6 @@
 {
   "name": "@mudas/http",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "This is a secondary encapsulation library that extends Axios",
   "author": "mudas",
   "license": "MIT",
@@ -14,49 +14,52 @@
     "type": "git",
     "url": "https://github.com/aosnow/http"
   },
-  "keywords": [ "http" ],
+  "keywords": [
+    "http"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name http packages/index.js",
     "report": "vue-cli-service build --target lib --name http packages/index.js --report",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
+    "log": "bash ./build/gitlog.sh",
     "pub": "npm run build && npm publish --access=public"
   },
   "typings": "types/index.d.ts",
   "files": [
     "dist",
     "types",
+    "packages",
     "package.json",
     "README.md"
   ],
-  "dependencies": { },
-  "peerDependencies": {
-    "axios": "^0.19.0",
+  "dependencies": {
+    "core-js": "^3.3.6",
     "lodash-es": "^4.17.15",
-    "core-js": "^2.6.5"
+    "hash.js": "^1.1.7",
+    "element-ui": "^2.12.0",
+    "axios": "^0.19.0",
+    "vue": "^2.6.10"
+  },
+  "peerDependencies": {
+    "axios": ">=0.19.0",
+	"core-js": ">=3.3.6",
+	"element-ui": ">=2.12.0",
+    "lodash-es": ">=4.17.15",
+    "hash.js": "^1.1.7"
   },
   "devDependencies": {
     "@mudas/file": "^0.0.2",
-    "@vue/cli-plugin-babel": "^3.8.0",
-    "@vue/cli-plugin-eslint": "^3.8.0",
-    "@vue/cli-plugin-unit-jest": "^3.8.0",
-    "@vue/cli-service": "^3.8.0",
-    "@vue/eslint-config-airbnb": "^4.0.0",
-    "@vue/test-utils": "1.0.0-beta.29",
-    "axios": "^0.19.0",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "^10.0.1",
-    "babel-jest": "^23.6.0",
-    "babel-minify-webpack-plugin": "^0.3.1",
-    "core-js": "^2.6.5",
-    "element-ui": "^2.9.2",
+    "@vue/cli-plugin-babel": "^4.0.5",
+    "@vue/cli-plugin-eslint": "^4.0.5",
+    "@vue/cli-plugin-unit-jest": "^4.0.5",
+    "@vue/cli-service": "^4.0.5",
+    "@vue/eslint-config-airbnb": "^4.0.1",
+    "@vue/test-utils": "^1.0.0-beta.29",
+    "babel-eslint": "^10.0.3",
     "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.0.0",
-    "happypack": "^5.0.1",
-    "hash.js": "^1.1.7",
-    "lodash-es": "^4.17.15",
-    "vue": "^2.6.10",
+    "eslint-plugin-vue": "^5.2.3",
     "vue-template-compiler": "^2.6.10"
   }
 }
