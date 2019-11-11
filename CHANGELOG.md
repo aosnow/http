@@ -1,4 +1,9 @@
 
+## 2019-11-12
+### Other Changes
+- refactor: 升级@vue/cli4，优化相关细节
+
+
 ## 2019-09-18
 ### Bug Fixes
 - fixed: 优化 EasyHttp 合并初始参数逻辑
