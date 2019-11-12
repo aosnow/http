@@ -27,6 +27,9 @@
     "pub": "npm run build && npm publish --access=public"
   },
   "typings": "types/index.d.ts",
+  "gitHooks": {
+    "commit-msg": "node scripts/verifyCommitMsg.js"
+  },
   "files": [
     "dist",
     "types",
