@@ -40,7 +40,10 @@ declare module 'vue/types/vue' {
   }
 }
 
-export declare function install(Vue:typeof _Vue, options?:AxiosRequestConfig):void;
+type EasyHttpOption = { id?:string } & AxiosRequestConfig;
+type EasyHttpOptions = EasyHttpOption | Array<EasyHttpOption>;
+
+export declare function install(Vue:typeof _Vue, options?:EasyHttpOptions):void;
 
 declare const _default:{
   install:typeof install,

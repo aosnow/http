@@ -37,7 +37,7 @@ class EasyHttp {
    */
   constructor(conf) {
     // 缓存配置数据
-    this._conf = merge(EasyHttp.Default, conf);
+    this._conf = merge(Object.create(null), EasyHttp.Default, conf);
 
     // 初始化
     this._init();

@@ -6,6 +6,11 @@
     <el-button @click="handler">点击发送登录请求</el-button>
     <el-button @click="download">点击请求下载文件</el-button>
 
+    <h2>多服务器接口调用测试：</h2>
+    <el-button @click="memberHandler">点击发送会员服务接口请求（请求短信）</el-button>
+    <el-input v-model="phone"></el-input>
+    <el-button @click="sweepHandler">点击发送扫码点餐服务接口请求</el-button>
+
     <h2>图片下载和请求中断测试：</h2>
     <el-button @click="getImage(1)">点击请求下载图片1</el-button>
     <el-button @click="getImage(2)">点击请求下载图片2</el-button>
@@ -22,41 +27,26 @@ import Vue from 'vue';
 import EasyHttp, { HttpError, hash, ResponseType } from '@mudas/http';
 import { download } from '@mudas/file';
 
-Vue.use(EasyHttp);
+Vue.use(EasyHttp, [
+  { id: 'member', baseURL: `/member-user` },
+  { id: 'sweep', baseURL: `/smo-api` },
+  { id: 'shop', baseURL: `/shop-api` }
+]);
 
-// TODO: 通过拦截器，植入 token
-// TODO: 通过拦截器，拦截 token 失效后中止所有请求
-
-// Vue.http.useInterceptor('request', config => {
-//   config.headers.token = '898efeb2-3ee9-46dc-ab40-1ee4d1087987';
-//   config.headers.invoke_source = '2101';
-//   config.headers.out_request_no = hash();
-//   return config;
-// });
-//
-// Vue.http.useInterceptor(
-//   'response',
-//   response => {
-//     // 必须返回原数据，否则正常请求之处无法取得该返回数据
-//     return response;
-//   },
-//   error => {
-//     const errInfo = HttpError.info(error);
-//     throw new Error(errInfo);
-//   }
-// );
-
-const config = [
-  {
+function genRequestInerceptor({ token, source }) {
+  return {
     type: 'request',
     interceptor: config => {
-      config.headers.token = '898efeb2-3ee9-46dc-ab40-1ee4d1087987';
-      config.headers.invoke_source = '2101';
+      config.headers.token = token;
+      config.headers.invoke_source = source;
       config.headers.out_request_no = hash();
       return config;
     }
-  },
-  {
+  };
+}
+
+function genResponseInerceptor() {
+  return {
     type: 'response',
     interceptor: response => {
       // 必须返回原数据，否则正常请求之处无法取得该返回数据
@@ -66,11 +56,16 @@ const config = [
       const errInfo = HttpError.info(error);
       throw new Error(errInfo);
     }
-  }
-];
+  };
+}
 
-Vue.http.batchUseInterceptor(config);
-
+Vue.http.member.batchUseInterceptor([genRequestInerceptor({
+  source: 2103
+}), genResponseInerceptor()]);
+Vue.http.shop.batchUseInterceptor([genRequestInerceptor({
+  source: 2101,
+  token: 'b015dd64-9ef9-4557-8e04-4bcfbfe0a15a'
+}), genResponseInerceptor()]);
 // Vue.http.ejectInterceptor('request');
 
 const ReadType = {
@@ -126,6 +121,7 @@ export default {
   components: {},
   data() {
     return {
+      phone: '15258893169',
       percent: 0,
       base64: '',
       url1: 'https://img.zcool.cn/community/0107a55d426347a8012187f40ef8be.jpg',
@@ -134,8 +130,8 @@ export default {
   },
   methods: {
     download() {
-      Vue.http.post(
-        '/api/goods/goods/exportGoods',
+      Vue.http.shop.post(
+        '/goods/goods/exportGoods',
         {},
         {
           responseType: ResponseType.blob // 响应头格式
@@ -148,12 +144,12 @@ export default {
     },
 
     handler() {
-      Vue.http.post(
-        '/api/v2/user-system/login/login', {
+      Vue.http.shop.post(
+        '/v2/user-system/login/login', {
           username: 'ghl_test',
           password: '123456'
         }
-      ).then(data => {
+      ).then(({ data }) => {
         console.warn(data);
         if (data.code === '10000') {
           console.warn(data);
@@ -189,6 +185,24 @@ export default {
       }).catch(reason => {
         console.warn('catch:', reason);
       });
+    },
+
+    memberHandler() {
+      console.warn('会员接口请求：', Vue.http.member);
+      Vue.http.member
+         .post('/comm/sendMsgCode', { phone: this.phone }) // 支付宝
+         .then(({ data }) => {
+           console.warn('会员短信信息：', data);
+         }).catch(reason => Promise.reject(reason));
+    },
+
+    sweepHandler() {
+      console.warn('扫码点餐接口请求：', Vue.http.sweep);
+      Vue.http.sweep
+         .get('/index/getUserInfo', { authMode: 1, buyerId: '2088002288842095' }) // 支付宝
+         .then(({ data }) => {
+           console.warn('会员信息：', data);
+         }).catch(reason => Promise.reject(reason));
     },
 
     cancelHandler() {

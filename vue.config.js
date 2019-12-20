@@ -25,13 +25,23 @@ module.exports = {
   devServer: {
     // 跨域配置
     proxy: {
-      '/api': {
-        // target: 'http://test.api.blibao.com:8080', // 外网 API
-        // target: 'http://172.16.8.15:8080', // 15环境
-        target: 'http://pic2.zhimg.com', // 测试百度图片
-        pathRewrite: { '^/api': '' },
+      '/shop-api': {
+        target: 'http://test.api.blibao.com:8080',
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: { '^/shop-api': '' }
+      },
+      '/member-user': {
+        target: 'http://test.api.blibao.com:8080',
         changeOrigin: true,
         secure: false
+        // pathRewrite: { '^/member-user': 'member-user' }
+      },
+      '/smo-api': {
+        target: 'http://test.blibao.com:10080',
+        changeOrigin: true,
+        secure: false
+        // pathRewrite: { '^/smo-api': 'smo-api' }
       }
     }
   },

@@ -1,4 +1,5 @@
 # @mudas/http
+[![npm version](https://img.shields.io/npm/v/@mudas/http.svg)](https://www.npmjs.org/package/@mudas/http)
 
 > This is a secondary encapsulation library that extends Axios.
 
@@ -17,7 +18,14 @@ import EasyHttp from '@mudas/http';
 Vue.use(EasyHttp);
 
 // Specify configuration for Axios
-// Vue.use(EasyHttp, {timeout: 5000});
+Vue.use(EasyHttp, {timeout: 5000});
+
+// Specify mutiple configuration for Axios
+Vue.use(EasyHttp, [
+  { id: 'member', baseURL: `/member-user` },
+  { id: 'sweep', baseURL: `/smo-api` },
+  { id: 'shop', baseURL: `/shop-api` }
+]);
 ```
 
 ## Usage
@@ -117,4 +125,63 @@ Vue.http.useInterceptor(
     throw new Error(errInfo);
   }
 );
+```
+
+6、Create multiple http api
+```js
+Vue.use(EasyHttp, [
+  { id: 'member', baseURL: `/member-user` },
+  { id: 'sweep', baseURL: `/smo-api` },
+  { id: 'shop', baseURL: `/shop-api` }
+]);
+
+/*
+result(the first config for default http api, use of Vue.http):
+---------------------------------------------------------------------------
+EasyHttp {member: EasyHttp, sweep: EasyHttp, shop: EasyHttp}
+    member: EasyHttp {_conf: {…}, _axios: ƒ, _source: {…}}
+    shop: EasyHttp {_conf: {…}, _axios: ƒ, _source: {…}}
+    sweep: EasyHttp {_conf: {…}, _axios: ƒ, _source: {…}}
+    __proto__: EasyHttp
+        _axios: ƒ wrap()
+        _conf: {responseType: "json", headers: {…}, id: "member", baseURL: "/member-user"}
+        _source: {token: CancelToken, cancel: ƒ}
+        __proto__: Object
+ */
+
+```
+Registering interceptors for multiple http api：
+```js
+function genRequestInerceptor({ token, source }) {
+  return {
+    type: 'request',
+    interceptor: config => {
+      config.headers.token = token;
+      config.headers.invoke_source = source;
+      config.headers.out_request_no = hash();
+      return config;
+    }
+  };
+}
+
+function genResponseInerceptor() {
+  return {
+    type: 'response',
+    interceptor: response => {
+      return response;
+    },
+    error: error => {
+      const errInfo = HttpError.info(error);
+      throw new Error(errInfo);
+    }
+  };
+}
+
+Vue.http.member.batchUseInterceptor([genRequestInerceptor({
+  source: 2103
+}), genResponseInerceptor()]);
+Vue.http.shop.batchUseInterceptor([genRequestInerceptor({
+  source: 2101,
+  token: 'b015dd64-9ef9-4557-8e04-4bcfbfe0a15a'
+}), genResponseInerceptor()]);
 ```
