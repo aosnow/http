@@ -22,7 +22,7 @@ class EasyHttp {
    */
   static Default = {
     responseType: ResponseType.json, // 默认响应数据类型
-    headers: { 'content-type': ContentType.json } // 默认请求数据类型
+    headers: { 'Content-Type': ContentType.json } // 默认请求数据类型
   };
 
   // --------------------------------------------------------------------------

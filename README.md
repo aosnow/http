@@ -29,8 +29,7 @@ Vue.use(EasyHttp, [
 ```
 
 ## Usage
-The content of both requests and responses is 'json'：
-(Note: that as of version 0.0.21, all headers keys follow lowercase naming convention, E.g. 'Content-Type' changed to 'content-type')
+The content of both requests and responses is 'json'
 ```js
 /**
  * Default config
@@ -38,7 +37,7 @@ The content of both requests and responses is 'json'：
  */
 static Default = {
   responseType: ResponseType.json, // reponse type
-  headers: { 'content-type': ContentType.json } // request type
+  headers: { 'Content-Type': ContentType.json } // request type
 };
 ```
 
