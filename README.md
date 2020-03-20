@@ -29,7 +29,7 @@ Vue.use(EasyHttp, [
 ```
 
 ## Usage
-The content of both requests and responses is 'json'：
+The content of both requests and responses is 'json'
 ```js
 /**
  * Default config
