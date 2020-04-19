@@ -5,9 +5,7 @@
 // ------------------------------------------------------------------------------
 
 import axios from 'axios';
-import merge from 'lodash.merge';
-import isNumber from 'lodash.isnumber';
-import set from 'lodash.set';
+import { merge, set, isNumber } from 'lodash-es';
 import { ResponseType, ContentType } from './Types';
 import { hash } from './utils';
 

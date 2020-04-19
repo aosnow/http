@@ -44,14 +44,5 @@ type EasyHttpOption = { id?:string } & AxiosRequestConfig;
 type EasyHttpOptions = EasyHttpOption | Array<EasyHttpOption>;
 
 export declare function install(Vue:typeof _Vue, options?:EasyHttpOptions):void;
-
-declare const _default:{
-  install:typeof install,
-  HttpError:HttpError,
-  EasyHttp:typeof EasyHttp,
-  ContentType:typeof ContentType,
-  ResponseType:typeof ResponseType,
-  hash:typeof hash
-};
-export default _default;
+export default install;
 export { HttpError, EasyHttp, ContentType, ResponseType, hash };

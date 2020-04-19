@@ -46,6 +46,12 @@ module.exports = {
     }
   },
 
+  // 默认情况下 babel-loader 会忽略所有 node_modules 中的文件
+  // 此处列出 node_modules 中同样需要让 babel 转译的 esm 模块
+  transpileDependencies: [
+    '@mudas/*'
+  ],
+
   configureWebpack: {
 
     entry: resolve('src/main.js'),
@@ -73,13 +79,6 @@ module.exports = {
     // 路径别名
     config.resolve.alias.set('@', resolve('src'));
     config.resolve.alias.set('@mudas/http', resolve('packages'));
-
-    // 不生成 html
-    if (!DEBUG) {
-      config.plugins.delete('html');
-      config.plugins.delete('preload');
-      config.plugins.delete('prefetch');
-    }
 
   }
 };

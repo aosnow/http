@@ -1,10 +1,11 @@
 {
   "name": "@mudas/http",
-  "version": "0.0.25",
+  "version": "0.0.27",
   "description": "This is a secondary encapsulation library that extends Axios",
   "author": "mudas",
   "license": "MIT",
   "main": "dist/http.common.js",
+  "module": "dist/http.esm.js",
   "sideEffects": false,
   "homepage": "https://github.com/aosnow/http",
   "bugs": {
@@ -19,11 +20,9 @@
   ],
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name http packages/index.js",
-    "report": "vue-cli-service build --target lib --name http packages/index.js --report",
+    "build": "rollup -c",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
-    "log": "bash ./build/gitlog.sh",
     "pub": "npm run build && npm publish --access=public"
   },
   "typings": "types/index.d.ts",
@@ -41,23 +40,23 @@
     "axios": "^0.19.0",
     "core-js": "^3.6.4",
     "hash.js": "^1.1.7",
-    "lodash.isnumber": "^3.0.3",
-    "lodash.merge": "^4.6.2",
-    "lodash.set": "^4.3.2"
+    "lodash-es": "^4.17.15"
   },
   "devDependencies": {
     "@mudas/file": "^0.0.2",
-    "@vue/cli-plugin-babel": "^4.0.5",
-    "@vue/cli-plugin-eslint": "^4.0.5",
-    "@vue/cli-plugin-unit-jest": "^4.0.5",
-    "@vue/cli-service": "^4.0.5",
-    "@vue/eslint-config-airbnb": "^4.0.1",
-    "@vue/test-utils": "^1.0.0-beta.29",
+    "@vue/cli-plugin-babel": "~4.2.0",
+    "@vue/cli-plugin-eslint": "~4.2.0",
+    "@vue/cli-plugin-unit-jest": "~4.2.0",
+    "@vue/cli-service": "~4.2.0",
+    "@vue/eslint-config-airbnb": "^5.0.2",
+    "@vue/test-utils": "1.0.0-beta.31",
     "babel-eslint": "^10.0.3",
-    "element-ui": "^2.12.0",
+    "element-ui": "^2.13.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.2.3",
-    "vue": "^2.6.10",
-    "vue-template-compiler": "^2.6.10"
+    "rollup": "^2.6.1",
+    "rollup-plugin-delete": "^1.2.0",
+    "vue": "^2.6.11",
+    "vue-template-compiler": "^2.6.11"
   }
 }

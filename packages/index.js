@@ -40,14 +40,5 @@ function install(Vue, options) {
   }
 }
 
-const _default = {
-  install,
-  EasyHttp,
-  HttpError,
-  ResponseType,
-  ContentType,
-  hash
-};
-
-export default _default;
+export default install;
 export { install, EasyHttp, HttpError, ResponseType, ContentType, hash };
