@@ -33,11 +33,11 @@ Vue.use(EasyHttp, [
   { id: 'shop', baseURL: `/shop-api` }
 ]);
 
-function genRequestInerceptor({ token, source }) {
+function genRequestInerceptor({ source }) {
   return {
     type: 'request',
     interceptor: config => {
-      config.headers.token = token;
+      config.headers.token = sessionStorage.getItem('@mudas/http//token');
       config.headers.invoke_source = source;
       config.headers.out_request_no = hash();
       return config;
@@ -63,8 +63,7 @@ Vue.http.member.batchUseInterceptor([genRequestInerceptor({
   source: 2103
 }), genResponseInerceptor()]);
 Vue.http.shop.batchUseInterceptor([genRequestInerceptor({
-  source: 2101,
-  token: 'b015dd64-9ef9-4557-8e04-4bcfbfe0a15a'
+  source: 2101
 }), genResponseInerceptor()]);
 // Vue.http.ejectInterceptor('request');
 
@@ -125,7 +124,7 @@ export default {
       percent: 0,
       base64: '',
       url1: 'https://img.zcool.cn/community/0107a55d426347a8012187f40ef8be.jpg',
-      url2: 'http://img.zcool.cn/community/01a5875bd1930fa801213deaf841e8.jpg@2o.jpg'
+      url2: 'https://img.zcool.cn/community/01d31a60458f4611013f3745567b66.jpg@1280w_1l_2o_100sh.jpg'
     };
   },
   methods: {
@@ -153,6 +152,8 @@ export default {
         console.warn(data);
         if (data.code === '10000') {
           console.warn(data);
+          const { token } = data.data;
+          sessionStorage.setItem('@mudas/http//token', token);
         }
         else {
           console.warn(new Error(data['sub_msg'] || data.msg));
@@ -165,6 +166,7 @@ export default {
     progress(progressEvent) {
       const { total, loaded } = progressEvent;
       this.percent = loaded / total * 100 >> 0;
+      console.warn(progressEvent, progressEvent.target.response);
     },
 
     getImage(id) {

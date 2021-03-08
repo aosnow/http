@@ -6,7 +6,7 @@
 ## Setup
 install：
 ```npm
-npm i @mudas/http lodash-es core-js axios -S
+npm i @mudas/http -S
 ```
 
 starting with v0.0.26, esm is supported. You need to add configuration for vue-cli to correctly translate the es module in node_modules:

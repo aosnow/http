@@ -6,7 +6,7 @@
 
 import _Vue from 'vue';
 import { AxiosRequestConfig } from './axios';
-import EasyHttp, { EasyHttpInstance } from './EasyHttp';
+import EasyHttp, { EasyHttpInstance, EasyHttpComplex } from './EasyHttp';
 import HttpError from './HttpError';
 
 /**
@@ -36,13 +36,12 @@ declare const ContentType:{
 // 扩展 Vue 静态属性，若是实例属性直接扩展 interface Vue 即可
 declare module 'vue/types/vue' {
   interface VueConstructor {
-    http:EasyHttpInstance;
+    http:EasyHttpInstance & EasyHttpComplex;
   }
 }
 
 type EasyHttpOption = { id?:string } & AxiosRequestConfig;
-type EasyHttpOptions = EasyHttpOption | Array<EasyHttpOption>;
 
-export declare function install(Vue:typeof _Vue, options?:EasyHttpOptions):void;
+export declare function install(Vue:typeof _Vue, options?:EasyHttpOption | EasyHttpOption[]):void;
 export default install;
 export { HttpError, EasyHttp, ContentType, ResponseType, hash };

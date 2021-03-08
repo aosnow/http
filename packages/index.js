@@ -4,15 +4,15 @@
 // created: 2019/6/26 21:04
 // ------------------------------------------------------------------------------
 
+import { hash } from '@mudas/util';
 import EasyHttp from './EasyHttp';
 import HttpError from './HttpError';
 import { ResponseType, ContentType } from './Types';
-import { hash } from './utils';
 
 /**
  * 注册插件
  * @param Vue
- * @param {EasyHttpOptions} [options]
+ * @param {EasyHttpOption | EasyHttpOption[]} [options]
  */
 function install(Vue, options) {
   if (Array.isArray(options)) {

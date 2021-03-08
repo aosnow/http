@@ -5,9 +5,8 @@
 // ------------------------------------------------------------------------------
 
 import axios from 'axios';
-import { merge, set, isNumber } from 'lodash-es';
+import { merge, set, isNumber, hash } from '@mudas/util';
 import { ResponseType, ContentType } from './Types';
-import { hash } from './utils';
 
 /**
  * http get post 请求
@@ -140,8 +139,8 @@ class EasyHttp {
   /**
    * 通过 get 方式请求数据
    * @param {string} url 请求地址
-   * @param {Object} data 需要提交的参数数据（做为 url params 提交）
-   * @param {Object} [conf] 附加配置参数（可覆盖默认配置，如覆盖 responseType）
+   * @param {any} data 需要提交的参数数据（做为 url params 提交）
+   * @param {AxiosRequestConfig} [conf] 附加配置参数（可覆盖默认配置，如覆盖 responseType）
    * @returns {Promise}
    */
   get(url, data = null, conf = null) {
@@ -151,8 +150,8 @@ class EasyHttp {
   /**
    * 通过 delete 方式请求数据
    * @param {string} url 请求地址
-   * @param {Object} data 需要提交的参数数据
-   * @param {Object} [conf] 附加配置参数（可覆盖默认配置，如覆盖 responseType）
+   * @param {any} data 需要提交的参数数据
+   * @param {AxiosRequestConfig} [conf] 附加配置参数（可覆盖默认配置，如覆盖 responseType）
    * @returns {Promise}
    */
   delete(url, data = null, conf = null) {
@@ -162,8 +161,8 @@ class EasyHttp {
   /**
    * 通过 get 方式提交参数并请求数据
    * @param {string} url 请求地址
-   * @param {Object} data 需要提交的参数数据（做为 url params 提交）
-   * @param {Object} [conf] 附加配置参数（可覆盖默认配置，如覆盖 responseType）
+   * @param {any} data 需要提交的参数数据（做为 url params 提交）
+   * @param {AxiosRequestConfig} [conf] 附加配置参数（可覆盖默认配置，如覆盖 responseType）
    * @returns {Promise}
    */
   post(url, data = null, conf = null) {
@@ -173,8 +172,8 @@ class EasyHttp {
   /**
    * 通过 put 方式提交参数并请求数据
    * @param {string} url 请求地址
-   * @param {Object} data 需要提交的参数数据
-   * @param {Object} [conf] 附加配置参数（可覆盖默认配置，如覆盖 responseType）
+   * @param {any} data 需要提交的参数数据
+   * @param {AxiosRequestConfig} [conf] 附加配置参数（可覆盖默认配置，如覆盖 responseType）
    * @returns {Promise}
    */
   put(url, data = null, conf = null) {
