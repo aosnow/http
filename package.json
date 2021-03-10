@@ -1,6 +1,6 @@
 {
   "name": "@mudas/http",
-  "version": "0.0.29",
+  "version": "0.1.0",
   "description": "This is a secondary encapsulation library that extends Axios",
   "author": "mudas",
   "license": "MIT",
@@ -35,10 +35,10 @@
     "package.json",
     "README.md"
   ],
-  "dependencies": {
-    "@mudas/util": "0.0.5",
-    "axios": "^0.21.1",
-    "core-js": "^3.6.5"
+  "peerDependencies": {
+    "@mudas/util": ">=0.0.5",
+    "axios": ">=0.19.1",
+    "core-js": ">=3.6.5"
   },
   "devDependencies": {
     "@mudas/file": "^0.0.2",
